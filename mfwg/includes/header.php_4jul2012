@@ -1,0 +1,9 @@
+ <header role="banner" id="branding">
+  <hgroup>
+    <h1 id="site-title"><span><a rel="home" title="Fitness Website Gurus" href="http://fitnesswebsitegurus.com/"></a></span></h1>
+    <div class="phone"></div>
+  </hgroup>
+  <nav role="navigation" id="access"> </nav>
+  <!-- #access -->
+</header>
+ 

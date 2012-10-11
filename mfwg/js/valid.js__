@@ -1,0 +1,340 @@
+// JavaScript Document
+function trimfun(stringToTrim) {
+	return stringToTrim.replace(/^\s+|\s+$/g,"");
+}
+function isNotEmpty(fname,txt){
+	if(trimfun(fname.value)==""){
+		alert(txt);
+		fname.focus();
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function spaces(reg,txt)
+{
+	var user=reg.value;
+	if(user.match(" "))
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+	else
+	{
+	 	return false;
+	}
+}
+function spaces1(reg,reg1,txt)
+{
+	var user=reg.value;
+	if(user.match(" "))
+	{
+		alert(txt);
+		reg.value="";
+		reg1.value="";
+		reg.focus();
+		return true;
+	}
+	else
+	{
+	 	return false;
+	}
+}
+function isChosen(select,txt) 
+{
+    if (select.selectedIndex == 0) 
+	{
+        alert(txt);
+		select.focus();
+        return true;
+    } 
+        return false;
+}
+function pass(reg)
+{
+ var pass1=reg.value;
+ if(pass1.length >= 6 && pass1.length <= 20)
+ {
+ 	return false;
+ }
+ else
+ {
+    alert("pass word should be minimum six and maximum 20 letters");
+	reg.value="";
+	reg.focus();
+	return true;
+ }
+ }
+ function pass1(reg,txt)
+{
+ var pass1=reg.value;
+ if(pass1.length >= 6 && pass1.length <= 20)
+ {
+ 	return false;
+ }
+ else
+ {
+    alert(txt);
+	reg.value="";
+	reg.focus();
+	return true;
+ }
+ }
+function samepass(reg,reg1,txt)
+ {
+ 	//var pass=reg.value;
+	//var repass=reg1.value;
+	if(reg.value==reg1.value)
+	{
+		return false;
+	}
+	else
+	{
+		//alert("aa");
+		alert(txt);
+		reg1.value="";
+		reg1.focus();
+		return true;
+	}
+ }
+
+
+function userminmax(reg,txt)
+{
+	var user=reg.value;
+	if(reg.value >0 && reg.value <32)
+	{
+		return false;
+	}
+	else
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+function userminmaxph(reg,txt)
+{
+	var user=reg.value;
+	if(reg.value==10)
+	{
+		return false;
+	}
+	else
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+function isnumaric(reg,txt)
+{
+	var reg1=/^[0-9]+$/;
+	if(reg.value.match(reg1))
+	{
+		return false;
+	}
+	else
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+
+
+function ischar(reg,txt)
+{
+	var reg1=/^[a-zA-Z]+$/;
+	if(reg.value.match(reg1))
+	{
+		return false;
+	}
+	else
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+function email(reg)
+{
+	var e=reg.value;
+	var e1=/^(?:\w+\.?)*\w+@(?:\w+\.)+\w+$/;
+	if(e.match(e1))
+	{
+		return false;
+	}
+	else
+	{
+		alert("Enter valid Email");
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+function check(reg,txt)
+{
+	//alert ("cc");
+	if(reg.value !=''){
+		var reg1=/^[0-9]+$/;
+		if(reg.value.match(reg1)){
+			return false;
+		}else{
+			alert(txt);
+			reg.value="";
+			reg.focus();
+			return true;
+		}
+	}
+		
+}
+function checkresume(reg,reg1,txt)
+{
+	//alert("aa");
+	if(reg.value=='' && reg1.value=='')
+	{
+		alert(txt);
+		reg.focus();
+		return true;
+	}
+	return false;
+}
+function isValidGender(radio,txt)
+{
+
+		for(i=0;i<radio.length;i++)
+		{
+			if (radio[i].checked)
+            	return false;
+		}
+		alert(txt);
+		radio[0].focus();
+		return true;
+
+}
+
+function web(reg,txt)
+{
+	var e=reg.value;
+	var e1=/^(http|https|www.):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/
+	var e2=/^(http:\/\/www.|https:\/\/www.|ftp:\/\/www.|www.|http:\/\/){1}[0-9A-Za-z\.\-]*\.[0-9A-Za-z\.\-]*$/
+	if(e.match(e1)||e.match(e2))
+	{
+		return false;
+	}
+	else
+	{
+		alert(txt);
+		reg.value="";
+		reg.focus();
+		return true;
+	}
+}
+function validatecheck(chk,txt){
+  if (chk.checked == 1)
+   return false;
+  else
+    alert(txt)
+    chk.focus();
+	return true;
+}
+///////////////////////////////					Contact Information		///////////////////////////////
+function basicSiteValidations(reg)
+{
+	if(isNotEmpty(reg.domain_name,"Domain name should not be empty")){return false}
+	
+	if(isNotEmpty(reg.site_title,"Site title should not be empty")){return false}
+	
+	if(isNotEmpty(reg.tagline,"Tagline should not be empty")){return false}
+	
+	if(isNotEmpty(reg.meta_keywords,"Meta keywords should not be empty")){return false}
+	
+	if(isNotEmpty(reg.meta_descriptions,"Meta descriptions should not be empty")){return false}
+}
+function salesPageDesignValidation(reg){
+
+	if(isValidGender(reg.color_options,"Select color options. It should not be empty")){return false}
+	
+	if(isValidGender(reg.header_optons,"Select header options. It should not be empty")){return false}
+	
+	if(isValidGender(reg.logo_optons,"Select logo options. It should not be empty")){return false}
+}
+function getDomainStatus(){
+	var data=$("#domain_name").val();
+	//alert(data);
+	if(data != ""){
+		jQuery.ajax({type: "POST",url: "includes/ajax/ajax.php",data: 'action=checkDomain&dname='+ data,
+			success: function(res1){
+				//alert(res1);			
+				if(res1 == 'yes'){
+					$("#domainResult").css("color", "green");
+					$("#domainResult").html("Domain Available");
+				}else{
+					$("#domainResult").css("color", "red");
+					$("#domainResult").html("Domain Not Available");
+				}
+			}
+		});
+	}else{
+		alert("Domain Name should not be empty");
+	}
+}
+function salesPageDesignValidation(){
+
+	if(isNotEmpty(reg.editor_headline,"Headline should not be empty")){return false}
+	
+	if(isNotEmpty(reg.editor_subheadline,"Sub headline title should not be empty")){return false}
+	
+	if(isNotEmpty(reg.editor_about,"About should not be empty")){return false}
+	
+	if(isNotEmpty(reg.editor_body,"Body should not be empty")){return false}	
+	
+}
+function testmonialTextFormValid(reg){
+	
+	if(isNotEmpty(reg.testimonial_name,"Name should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_location,"Location should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_content,"Testimonial should not be empty")){return false}	
+	
+}
+function testmonialImageFormValid(reg){
+	
+	if(isNotEmpty(reg.testimonial_plus_name,"Name should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_plus_location,"Location should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_plus_content,"Testimonial should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_image1_file_upload,"Image1 should not be empty")){return false}
+	
+	if(isNotEmpty(reg.testimonial_image2_file_upload,"Image2 should not be empty")){return false}
+}
+/*function addTestimonialContent(){
+	var tname=$("#testimonial_name").val();
+	var tlocation=$("#testimonial_location").val();
+	var tcontent=$("#testimonial_content").val();
+	//alert(data);
+	jQuery.ajax({type: "POST",url: "includes/ajax/ajax.php",data: 'action=addTestimonialContent&tname='+ tname+'&tlocation='+ tlocation+'&tcontent='+ tcontent,
+		success: function(res1){
+			alert(res1);			
+			if(res1 == 'yes'){
+				$("#domainResult").css("color", "green");
+				$("#domainResult").html("Domain Available");
+			}else{
+				$("#domainResult").css("color", "red");
+				$("#domainResult").html("Domain Not Available");
+			}
+		}
+	});	
+}*/
+

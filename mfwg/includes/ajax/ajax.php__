@@ -1,0 +1,77 @@
+<?php
+include_once("/home/mfwg/classes/class.system.php");
+$S = new System();
+$S->dbconn();
+
+if($_POST['action']=='checkDomain'){
+	$username="rama";
+	$password="ritwik";
+	$domain =$_POST['dname'];
+	$contents = file_get_contents("http://www.whoisxmlapi.com/whoisserver/WhoisService?domainName=".$domain."&cmd=GET_DN_AVAILABILITY&username=$username&password=$password&outputFormat=JSON");
+	// echo $contents;
+	$res=json_decode($contents);
+	if($res){
+		$domainInfo = $res->DomainInfo;
+		if($domainInfo){
+			//echo "Domain name: " . print_r($domainInfo->domainName,1) ."<br/>";
+			//echo "Domain Availability: " .print_r($domainInfo->domainAvailability,1) ."<br/>";
+			//print_r($domainInfo);
+			if($domainInfo->domainAvailability == 'UNAVAILABLE'){
+				echo "no";
+			}else{
+				echo "yes";
+			}			
+		}
+	}		 
+}
+if($_POST['action'] =='addTestimonialContent'){
+	$data=$_POST;
+	$res=$S->saveTestimonialText($data);
+	print_r($res);
+	
+}
+if($_POST['action'] =='getTestimonialContent'){
+	$id=$_POST['id'];
+	$res=$S->getTestimonial($id);
+	//print_r($res);
+	echo '{"name":'.json_encode($res->name).', "location":'. json_encode($res->location) .', "content":'. json_encode($res->testimonial) .'}';exit;
+	
+}
+if($_POST['action'] =='editItem'){
+	$id=$_POST['id'];
+	$res=$S->get_my_shoppingcartbyid($id);
+	//print_r($res);
+	//echo '{"sid":'.json_encode($res->id).', "title":'. json_encode($res->title) .', "description":'. json_encode($res->description) .'}';exit;
+	if($res->billing_type == '1'){
+		$sel1="selected";
+		$sel2="";
+	}elseif($res->billing_type == '2'){
+		$sel1="";
+		$sel2 ="selected";
+	}else{
+		$sel1="";
+		$sel2="";
+	}
+	echo '<div id="AddItem_formdiv">
+	<form id="AddItem_form" method="post" action="" onSubmit="return addItemShoppingCart(this)">
+	<input type="hidden" name="sid" id="sid" value="'.$res->id.'">
+<div class="additem">
+<h1><span>Edit item</span> in cart</h1>
+<ul>
+<li><label>Title</label> <input id="title" name="title" class="input" value="'.$res->title.'"> </li>
+<li><label>Description</label> <input id="description" name="description" class="input" value="'.$res->description.'"> </li>
+<li><label>Billing Type</label>  
+<select name="billing_type" id="billing_type1" onChange="return billingstatvalidationedit()">
+<option value="">select</option>
+<option value="1" '.$sel1.' >One time</option>
+<option value="2" '.$sel2.'>Recuring</option>
+</select> </li>
+<li><label># of Payments</label> <input name="no_of_payments" id="no_of_payments1" class="input" value="'.$res->no_of_payments.'"> </li>
+<li><label>Amount</label> <input name="amount" id="amount" class="input" value="'.$res->amount.'"> </li>
+<li> <input type="submit" class="btn-save" name="insertItem" value="save"> </li>
+</ul>
+</div>
+  </form></div>';
+	
+}
+?>

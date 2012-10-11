@@ -1,0 +1,40 @@
+<?php
+include_once("/home/mfwg/classes/class.system.php");
+$S = new System();
+$S->dbconn();
+
+if($_POST['action']=='checkDomain'){
+	$username="rama";
+	$password="ritwik";
+	$domain =$_POST['dname'];
+	$contents = file_get_contents("http://www.whoisxmlapi.com/whoisserver/WhoisService?domainName=".$domain."&cmd=GET_DN_AVAILABILITY&username=$username&password=$password&outputFormat=JSON");
+	// echo $contents;
+	$res=json_decode($contents);
+	if($res){
+		$domainInfo = $res->DomainInfo;
+		if($domainInfo){
+			//echo "Domain name: " . print_r($domainInfo->domainName,1) ."<br/>";
+			//echo "Domain Availability: " .print_r($domainInfo->domainAvailability,1) ."<br/>";
+			//print_r($domainInfo);
+			if($domainInfo->domainAvailability == 'UNAVAILABLE'){
+				echo "no";
+			}else{
+				echo "yes";
+			}			
+		}
+	}		 
+}
+if($_POST['action'] =='addTestimonialContent'){
+	$data=$_POST;
+	$res=$S->saveTestimonialText($data);
+	print_r($res);
+	
+}
+if($_POST['action'] =='getTestimonialContent'){
+	$id=$_POST['id'];
+	$res=$S->getTestimonial($id);
+	//print_r($res);
+	echo '{"name":'.json_encode($res->name).', "location":'. json_encode($res->location) .', "content":'. json_encode($res->testimonial) .'}';exit;
+	
+}
+?>
